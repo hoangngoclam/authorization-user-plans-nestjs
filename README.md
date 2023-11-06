@@ -20,3 +20,6 @@ $ pnpm run start
 # watch mode
 $ pnpm run start:dev
 ```
+
+## Database Design:
+https://drive.google.com/file/d/1p8c6hbC4YyTZ14c72QBLCqs-tiG9Ec-Y/view?usp=sharing
