@@ -22,6 +22,15 @@ export class ServicesService {
     });
     return services;
   }
+
+  async findById(serviceId: number) {
+    const services = await this.servicesRepository.findOne({
+      where: { id: serviceId },
+      relations: { category: true },
+    });
+    return services;
+  }
+
   async registerService(
     serviceId: number,
     userId: number,
