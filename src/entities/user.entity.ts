@@ -5,6 +5,7 @@ import {
   PrimaryGeneratedColumn,
   Unique,
 } from 'typeorm';
+import { Service } from './service.entity';
 import { UserPackage } from './user-package.entity';
 
 @Entity()
@@ -24,4 +25,7 @@ export class User {
 
   @OneToMany(() => UserPackage, (userPackage) => userPackage.user)
   userPackages: UserPackage[];
+
+  @OneToMany(() => Service, (service) => service.serviceOrders)
+  services: Service[];
 }

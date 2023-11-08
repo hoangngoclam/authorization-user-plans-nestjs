@@ -34,7 +34,10 @@ export class UsersService {
   }
 
   async findOneByEmail(email: string): Promise<User> {
-    const user = await this.usersRepository.findOne({ where: { email } });
+    const user = await this.usersRepository.findOne({
+      where: { email: email },
+      relations: { userPackages: { package: true } },
+    });
     if (!user) {
       throw new NotFoundException(`User with email: ${email} not found`);
     }
@@ -57,7 +60,10 @@ export class UsersService {
     password: string;
   }): Promise<User | null> {
     const { email, password } = loginData;
-    const user = await this.findOneByEmail(email);
+    const user = await this.usersRepository.findOne({
+      where: { email: email },
+      relations: { userPackages: { package: true } },
+    });
 
     if (user && password == user.password) {
       return user;

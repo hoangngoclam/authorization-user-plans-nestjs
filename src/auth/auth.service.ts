@@ -4,6 +4,7 @@ import { User } from 'src/entities/user.entity';
 import { UsersService } from 'src/users/users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { LoginUserDto } from './dto/login-user.dto';
+import { JwtPayload } from './jwt-payload.interface';
 
 @Injectable()
 export class AuthService {
@@ -19,7 +20,16 @@ export class AuthService {
       throw new UnauthorizedException('Sai thông tin đăng nhập');
     }
 
-    const payload = { id: user.id, user: user.name, email: user.email };
+    const payload: JwtPayload = {
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      package: '',
+    };
+
+    if (user.userPackages.length > 0) {
+      payload.package = user.userPackages[0].package.name;
+    }
     const accessToken = this.jwtService.sign(payload);
 
     return { access_token: accessToken };
